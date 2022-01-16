@@ -1,0 +1,21 @@
+@import "../../shared";
+
+main{
+	margin-left: $nav-bar-width+9px;
+	position: relative;
+	.main-container{
+		width: 973px;
+		margin:0 auto;
+	}
+	.section-bg{
+		z-index: -1;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		opacity: 0.3;
+		background: linear-gradient(0deg,hsla(0,0%,100%,0.2),hsla(0,0%,100%,0.2)) #1877f2;
+	}
+	.home-page-wrapper{
+		position: relative;
+	}
+}
