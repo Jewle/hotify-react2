@@ -1,0 +1,16 @@
+.playlist-cover{
+  width: 232px;
+  height: 232px;
+}
+
+.playlist-features{
+  display: flex;
+  .playlist-title{
+    align-self: center;
+    margin-left: 20px;
+    .playlist-header{
+      font-size: 96px;
+      width: 100%;
+    }
+  }
+}

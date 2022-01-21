@@ -4,23 +4,23 @@ import {compose} from "../../utils";
 import withService from "../hoc/withService";
 import {Howl} from 'howler';
 class AudioController extends Component{
-    audioRef = React.createRef()
-    componentDidMount() {
-
+    constructor(){
+        super()
         this.audioRef = document.querySelector('audio')
-
     }
+
 //Поправить isTrackPlaying
     render() {
+        if(!this.audioRef) return <div></div>
+
         const {isTrackPlaying,service,currentTrackId} = this.props
         const {src} = service.getTrack(currentTrackId)
-
 
 
         // isTrackPlaying ? this.audioRef.play() : this.audioRef.pause()
         this.audioRef.src = src
         this.audioRef.addEventListener('canplay',()=>{
-            this.audioRef.play()
+          this.audioRef.play()
         })
 
         return(

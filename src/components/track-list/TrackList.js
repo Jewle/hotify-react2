@@ -1,11 +1,18 @@
 import React from 'react';
 import './track-list.scss'
 import TrackListItem from "../track-list-item/TrackListItem";
-import withService from "../hoc/withService";
 
 
- function TrackList ({service}) {
-     const tracks = service.getAllTracks()
+
+ function TrackList ({tracks}) {
+
+     if (tracks.length===0){
+         return (
+             <div>
+                 Пока нет треков здесь
+             </div>
+         )
+     }
     return (
         <div className="track-list-wrapper">
             <section className="track-list">
@@ -29,4 +36,4 @@ import withService from "../hoc/withService";
     )
 }
 
-export default withService(TrackList)
+export default TrackList

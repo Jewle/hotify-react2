@@ -1,6 +1,7 @@
 import React from 'react';
 import './left-menu.scss'
-import axios from "axios";
+
+import LeftMenuPlaylists from "../left-menu-playlists/LeftMenuPlaylists";
 
 export  default function LeftMenu() {
 
@@ -69,26 +70,8 @@ export  default function LeftMenu() {
                             <a className="left-menu-action" href="#">Мои любимы треки</a>
                         </div>
                     </div>
-                    <div className="playlists">
-                        <ul>
-                            <li>PLAYLIST</li>
-                            <li>PLAYLIST</li>
-                            <li>PLAYLIST</li>
-                            <li>PLAYLIST</li>
-                            <li>PLAYLIST</li>
-                            <li>PLAYLIST</li>
-                            <li>PLAYLIST</li>
-                            <li>PLAYLIST</li>
-                            <li>PLAYLIST</li>
-                            <li>PLAYLIST</li>
-                            <li>PLAYLIST</li>
-                            <li>PLAYLIST</li>
-                            <li>PLAYLIST</li>
-                            <li>PLAYLIST</li>
-                            <li>PLAYLIST</li>
-                        </ul>
-                    </div>
-                    <div className="playlist-shadow"></div>
+                    <LeftMenuPlaylists/>
+
                 </div>
 
             </div>
