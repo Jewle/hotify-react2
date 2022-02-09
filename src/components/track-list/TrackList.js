@@ -4,9 +4,11 @@ import TrackListItem from "../track-list-item/TrackListItem";
 
 
 
- function TrackList ({tracks}) {
+ function TrackList ({tracks=[],type,numberOfTracks}) {
 
-     if (tracks.length===0){
+
+
+     if (numberOfTracks===0){
          return (
              <div>
                  Пока нет треков здесь
@@ -16,17 +18,20 @@ import TrackListItem from "../track-list-item/TrackListItem";
     return (
         <div className="track-list-wrapper">
             <section className="track-list">
-                <div className="track-list-header">
+                {type!=='stats'
+                && <div className="track-list-header">
                     <div className="track-list-header-item">#</div>
                     <div className="track-list-header-item">НАЗВАНИЕ</div>
                     <div className="track-list-header-item">АЛЬБОМ</div>
                     <div className="track-list-header-item">ДАТА ДОБАВЛЕНИЯ</div>
                     <div className="track-list-header-item">ЧАСИКИ</div>
                 </div>
+                }
+
                 <ul className="track-set">
                     {tracks.map((track,index)=>{
                         return <li key={track.id} className="track-set-item">
-                            <TrackListItem track={track} index={index}/>
+                            <TrackListItem type={type} track={track} index={index}/>
                         </li>
                     })}
 

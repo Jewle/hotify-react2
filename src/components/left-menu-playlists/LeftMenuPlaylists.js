@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 
 function LeftMenuPlaylists(props) {
     const {playlists} = props
-    console.log(playlists);
+
 
     return (
 
@@ -13,6 +13,7 @@ function LeftMenuPlaylists(props) {
             <div className="playlists">
                 <ul>
                     {playlists.map(playlist=>{
+                        if (playlist.id==='fav') return null
                         const link = `/playlist/${playlist.id}`
                         return(
                         <li key={playlist.id}>

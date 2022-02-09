@@ -8,8 +8,9 @@ import {compose} from '../../utils/index'
 import withService from "../hoc/withService";
 
 function Player (props) {
-    const {trackId,service} = props
-    const track = service.getTrack(trackId)
+    console.log(props)
+    const {track} = props
+
 
 
 
@@ -23,9 +24,9 @@ function Player (props) {
         </div>
     )
 }
-const mapStateToProps=({currentTrackId})=>{
+const mapStateToProps=({currentTrack})=>{
     return {
-        trackId:currentTrackId
+        track:currentTrack
     }
 }
 const mapDispatchToProps = (dispatch)=>{

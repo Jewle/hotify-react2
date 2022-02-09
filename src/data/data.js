@@ -1,10 +1,3 @@
-const playlists = JSON.stringify({
-    playlists:[
-        {id:2,title:'Title'},
-        {id:3,title:'Hui'}
-        ]
-})
-localStorage.setItem('state', playlists)
 
 const data = {
     tracks:[
@@ -74,6 +67,35 @@ const data = {
             clonedTrack.id=idx
             return clonedTrack
         }),
+    artists:[
+        {
+            name:'Bad Omens',
+            monthListeners:10000,
+            isVerified:true,
+            coverImg:{
+                src:'https://i.scdn.co/image/ab67618600001016d09b37b1b97420f6d0ef2c5f',
+                type:'img'
+            }
+        },
+        {
+            name:'XCHO',
+            monthListeners:10000,
+            isVerified:true,
+            coverImg: {
+                src: 'rgb(160, 96, 88)',
+                type:'bg'
+            }
+        },
+        {
+            name:'Egypt Central',
+            monthListeners:10000,
+            isVerified:true,
+            coverImg: {
+                src: 'https://i.scdn.co/image/ab676186000010164ae5373ce26a0d0955ada756',
+                type:'img'
+            }
+        }
+    ]
 }
 
 export default data

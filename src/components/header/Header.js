@@ -1,27 +1,21 @@
 import React from 'react';
 import './header.scss'
-import UserWidget from "../user-widget/UserWidget";
+import HeaderElements from "./header-elements/HeaderElements";
+import HeaderInfo from "./header-info/HeaderInfo";
 
-export default  function Header () {
-    return (<div className="header-wrapper">
-                <div className="section-bg"></div>
-                    <header className="main-container">
-                        <div className="page-switcher">
-                            <button>
-                                <svg role="img" focusable="false" height="24" width="24" viewBox="0 0 24 24"
-                                     className="Svg-ytk21e-0 dMCjEC IYDlXmBmmUKHveMzIPCF">
-                                    <polyline points="16 4 7 12 16 20" fill="none" stroke="#181818"></polyline>
-                                </svg>
-                            </button>
-                            <button>
-                                <svg role="img" focusable="false" height="24" width="24" viewBox="0 0 24 24"
-                                     className="Svg-ytk21e-0 dMCjEC IYDlXmBmmUKHveMzIPCF">
-                                    <polyline points="8 4 17 12 8 20" fill="none" stroke="#181818">
-                                    </polyline>
-                                </svg>
-                            </button>
-                        </div>
-                        <UserWidget/>
-                    </header>
-    </div>)
+export default  function Header (props) {
+    const {type}=props
+    const isWide  = type==='artist'
+    const bgStyles = type==='artist' ? {backgroundImage:'url(https://i.scdn.co/image/ab67618600001016d09b37b1b97420f6d0ef2c5f)'} : {}
+
+    return(
+        <div className={`header-wrapper ${isWide && ' wide ' }`}>
+            <div className="section-bg" style={bgStyles}></div>
+            <header className="main-container">
+                <HeaderElements/>
+                <HeaderInfo info={props.artistInfo}/>
+            </header>
+        </div>
+
+    )
 }

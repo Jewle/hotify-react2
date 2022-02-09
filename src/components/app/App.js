@@ -15,6 +15,7 @@ import AudioController from "../audio-controller/AudioController";
 import PlayListView from "../playlist-view/PlayListView";
 import {BrowserRouter, Route, Router, Switch} from "react-router-dom"
 import MainPage from "../pages/MainPage";
+import Artist from "../artist/Artist";
 
 
 
@@ -33,6 +34,8 @@ export default function App() {
                            <Switch>
                                <Route exact path='/playlist/:id' component={PlayListView}/>
                                 <Route exact path='/' component={MainPage}/>
+                                <Route exact path='/collection/:id' component={PlayListView}/>
+                                <Route exact path='/artist' component={Artist}/>
                            </Switch>
 
 
