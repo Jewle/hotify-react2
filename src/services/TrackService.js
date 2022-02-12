@@ -10,35 +10,32 @@ export default class TrackService {
     getAllTracks(){
         return this.tracks
     }
-    getPlaylistTracks(playlist){
-        if (playlist.songs.length===0) return []
-        return playlist.songs.map(song=>this.getTrack(song.id))
+    getDemoPlaylists(){
+        return this.spot.demoPlaylists()
     }
-
+    getDemoPlaylistTracks(id){
+        return this.spot.demoPlaylistTracks(id)
+    }
      async getPlayList(playlistId){
-         const {playlists} = store.getState()
+
+        const {playlists} = store.getState()
         const playlist = this._find(playlists,playlistId)
-        if (!playlist) return [];
+
+        if (!playlist) return this.getDemoPlaylistTracks(playlistId);
+
         const songIds = playlist.songs.map(song=>song.id)
         const songs = await this.spot.getTracksByIds(songIds)
-         console.log(songs)
         return {...playlist,songs,count:songs.length}
     }
 
-    getPlaylistInfo(id){
+    isInFav(id){
         const {playlists} = store.getState()
-        const playlist = this._find(playlists,id)
-        if (!playlist) return {songs:[], count:4};
-        return playlist
-     }
-    getTrack = (id)=>{
-        const track = this._find(this.tracks,id)
-
-        if (!track) return
-        return track
+        const favPlaylist = this._find(playlists,'fav')
+        return favPlaylist.songs.includes(id)
     }
 
-    _findCb(id){
+    _findCb = (id)=>{
+        !isNaN(+id) && (id=+id)
         return item=>item.id===id
     }
     _find = (array,id) => array.find(this._findCb(id))

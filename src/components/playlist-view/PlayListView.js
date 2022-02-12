@@ -11,12 +11,13 @@ import {attachSongsToPlaylist} from "../../actions";
 function PlaylistsView(props) {
     const {service,addSongs} = props
     const {id} = props.match.params
-    const [playlist,setPlaylist] = useState({songs:[],title:'',count:0})
-    const {title,count} = service.getPlaylistInfo(id)
-
+    const [playlist,setPlaylist] = useState({songs:[],title:'',count:1})
+    // const {title,count} = service.getPlaylistInfo(id)
+    const {title,count} = playlist
     console.log(playlist)
 
      useEffect(()=>{
+
          service.getPlayList(id)
              .then(playlist=>setPlaylist(playlist))
 

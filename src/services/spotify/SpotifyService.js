@@ -15,7 +15,7 @@ class FetchCore{
         Array.isArray(params.ids) && (params.ids = params.ids.join(','))
 
         const queries = this._query(params)
-        await this._delayRequest(2000)
+        // await this._delayRequest(2000)
         console.log('Perform request')
         const response = await fetch(url+'?'+queries, this._options)
 
@@ -27,6 +27,7 @@ class SpotifyMapper {
     _tracksUrl ='https://spotify23.p.rapidapi.com/tracks/'
     _albumsUrl = 'https://spotify23.p.rapidapi.com/albums/'
     _searchUrl = `https://spotify23.p.rapidapi.com/search/`
+    _playlistTracksUrl = `https://spotify23.p.rapidapi.com/playlist_tracks/`
     _mapToTrackData(track){
         const albumData = track.album
         return {
@@ -64,6 +65,30 @@ class SpotifyMapper {
             name
         }
     }
+    _mapToPlaylistData(playlist){
+        const {data:{uri,name,description,images:{items}}} = playlist
+        const id = uri.split(':')[2]
+        const image = items[0].sources[0].url
+        return {
+            name,
+            description,
+            image,
+            id
+        }
+    }
+    _mapToArtistData(artist){
+       return {
+           name:artist.name,
+           monthListeners:artist.followers.total,
+           isVerified:true,
+           coverImg:artist.images[0].url,
+
+       }
+    }
+    _mapToArtistPreviewAlbums(){
+        return
+    }
+
 
     _mapDataFromSearch(type,data){
         switch (type) {
@@ -108,6 +133,35 @@ export default class extends SpotifyMapper{
         const popularResult  = items[0].data
         const searchType = popularResult.uri.split(':')[1]
         return this._mapDataFromSearch(searchType,popularResult)
+    }
+    async demoPlaylists(){
+        const json = await this.fetchService.get(this._searchUrl,{
+            q:'Rock',
+            type:'playlists',
+            limit:8,
+            offset: '0',
+        })
+        const data = json.playlists.items
+        if (!json && !Array.isArray(data)) return Promise.resolve([])
+        return data.map(this._mapToPlaylistData)
+    }
+    async demoPlaylistTracks(id){
+        const json = await this.fetchService.get(this._playlistTracksUrl,{
+            id,
+            limit:16,
+            offset: '0',
+
+        })
+        //Я об этом пожалею
+        const data = json.items
+
+            return {
+                title:'Play',
+                count:json.total,
+                songs:data.map(item=>this._mapToTrackData(item.track))
+            }
+
+
     }
 
 

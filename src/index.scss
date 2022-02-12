@@ -67,6 +67,12 @@ a{
   line-height: 36px;
   text-transform: none
 }
+
+.added-heart{
+  margin-right: 10px;
+  margin-top: -30px;
+  display: none;
+}
 body{
   background-color: $base-color;
   padding-bottom: 104px;

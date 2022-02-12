@@ -1,43 +1,24 @@
-import React, {Component} from "react";
+import React, {Component, useEffect} from "react";
 import {connect} from "react-redux";
 import {compose} from "../../utils";
 import withService from "../hoc/withService";
 import {Howl} from 'howler';
-class AudioController extends Component{
-    constructor(){
-        super()
-        this.audioRef = document.querySelector('audio')
-    }
-
-//Поправить isTrackPlaying
-    render() {
-        if(!this.audioRef) return <div></div>
-
-        const {isTrackPlaying,service,currentTrackId} = this.props
-        const {src} = service.getTrack(currentTrackId)
-
-
-        // isTrackPlaying ? this.audioRef.play() : this.audioRef.pause()
-        this.audioRef.src = src
-        this.audioRef.addEventListener('canplay',()=>{
-          this.audioRef.play()
-        })
-
-        return(
-           <div>
-               <audio src=''
-                      preload='none'>
-               </audio>
-
-           </div>
-        )
-    }
+function AudioController({currentTrack,isTrackPlaying}) {
+    useEffect(()=>{
+        const audioRef = document.querySelector('audio')
+        audioRef.src = currentTrack.src
+        isTrackPlaying ? audioRef.play() : audioRef.pause()
+    },[currentTrack.id,isTrackPlaying])
+    return <div>
+        <audio src=""></audio>
+    </div>
 }
 
+
 const mapDispatchToProps = {}
-const mapStateToProps = ({isTrackPlaying,currentTrackId}) => ({
+const mapStateToProps = ({isTrackPlaying,currentTrack}) => ({
     isTrackPlaying,
-    currentTrackId
+    currentTrack
 })
 
 export default compose(connect(mapStateToProps,mapDispatchToProps),withService)(AudioController)

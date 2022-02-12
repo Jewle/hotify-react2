@@ -1,4 +1,5 @@
 function trackSwitch(payload) {
+
     return {
         type:'TRACK_SWITCH',
         payload
@@ -18,6 +19,7 @@ function addPlaylist(payload) {
 }
 
 function attachSongsToPlaylist(payload) {
+    console.log(payload)
     return{
         type:'PLAYLIST_ATTACH_SONGS',
         payload

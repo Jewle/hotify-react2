@@ -5,11 +5,11 @@ const playlists =
     : [{id:1,title: 'Playlist#1', songs:[]}]
 
 
-console.log(playlists)
+
 const initialState = {
     currentTrack:{id:2, title:'', artistName:'',trackCover:''},
     isTrackPlaying:false,
-    playlists
+    playlists:playlists.map(p=>({...p,isLocal:true}))
 
 }
 
@@ -23,8 +23,9 @@ function TrackControlReducer(state=initialState,action) {
 
 
     switch (action.type) {
+
         case 'TRACK_SWITCH':{
-            const isTrackPlaying = state.currentTrackId === action.payload ? !state.isTrackPlaying : true
+            const isTrackPlaying = state.currentTrack.id === action.payload.id ? !state.isTrackPlaying : true
             return{
                 ...state,
                 currentTrack:action.payload,
@@ -54,7 +55,7 @@ function TrackControlReducer(state=initialState,action) {
             let {songs:newSongs,id} = action.payload
             newSongs = newSongs.map(song=>({id:song}))
             const clonedPlaylists = state.playlists.map(plist=>({...plist}))
-            const playlist = clonedPlaylists.find(plist=>plist.id===+id)
+            const playlist = clonedPlaylists.find(plist=>plist.id===id)
             playlist.songs = [...playlist.songs,...newSongs]
             return {
                 ...state,

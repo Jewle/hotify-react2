@@ -1,7 +1,8 @@
 import React, {useContext} from 'react';
 import {connect} from "react-redux";
-import {trackSwitch, trackToggle} from "../../actions";
+import {attachSongsToPlaylist, trackSwitch, trackToggle} from "../../actions";
 import TrackToggle from "../track-toggle/TrackToggle";
+import AddButton from "../common/add-button/AddButton";
 
 
  function TrackListItem(props) {
@@ -9,10 +10,10 @@ import TrackToggle from "../track-toggle/TrackToggle";
     const {trackCover,
            trackDuration,
            addingDate,
-           artistName,
+           artists,
            trackName,
            album,id} = props.track
-     const {trackSwitch,trackPlaying,currentTrack,type} = props
+     const {trackSwitch,attachSongsToPlaylist,trackPlaying,currentTrack,type} = props
      const isActive = currentTrack.id=== id
     return (
         <ul className="track-set-item-data">
@@ -29,13 +30,15 @@ import TrackToggle from "../track-toggle/TrackToggle";
                 </div>
                 <div className="track-title">
                     <span className={isActive ? 'active-track' : ''}>{trackName}</span>
-                    <span className="band-name"><a href="#">{artistName}</a></span>
+                    <span className="band-name"><a href="#">{artists.name}</a></span>
                 </div>
             </li>
             {type!=='stats'&&<React.Fragment>
                 <li className="tdata">{album}</li>
                 <li className="tdata">{addingDate}</li>
-                <li className="tdata">{trackDuration}</li>
+                <li className="tdata">
+                    <AddButton trackId={id} attachSongsToPlaylist={attachSongsToPlaylist}/>
+                    {trackDuration}</li>
             </React.Fragment>}
         </ul>
     )
@@ -48,7 +51,7 @@ const mapStateToProps = ({currentTrack,isTrackPlaying})=> {
 }
 const mapDispatchToProps = {
      trackSwitch,
-     trackToggle
+    attachSongsToPlaylist
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(TrackListItem)
